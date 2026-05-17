@@ -1,4 +1,7 @@
 const form = document.getElementById("paymentForm");
+const paymentBtn = document.getElementById("paymentLinkBtn");
+
+let paymentUrl = "";
 
 function isMobileDevice() {
   return (
@@ -6,6 +9,7 @@ function isMobileDevice() {
     window.innerWidth <= 768
   );
 }
+
 form.addEventListener("submit", function (e) {
   e.preventDefault();
 
@@ -14,9 +18,11 @@ form.addEventListener("submit", function (e) {
   let amountInput = document.getElementById("rentAmount").value || "";
   let tagInput = document.getElementById("cashTag").value || "";
 
+  // Clean tag
   let tag = tagInput.replace("$", "").trim().replace(/\s/g, "");
   let amount = Number(amountInput);
 
+  // Validation
   if (!tag) {
     alert("Please enter a valid Cash App tag");
     return;
@@ -27,21 +33,31 @@ form.addEventListener("submit", function (e) {
     return;
   }
 
+  // Fill receipt details
   document.getElementById("rName").textContent = name;
   document.getElementById("rUnit").textContent = unit;
   document.getElementById("rAmount").textContent = amount.toFixed(2);
 
-  const url = `https://cash.app/$${encodeURIComponent(tag)}/${amount}`;
+  // Generate Cash App URL
+  paymentUrl = `https://cash.app/$${encodeURIComponent(tag)}/${amount.toFixed(2)}`;
 
-  console.log("Cash App URL:", url);
+  console.log("Cash App URL:", paymentUrl);
 
+  // Show result section
   document.getElementById("result").classList.remove("hidden");
+});
 
-  document.getElementById("paymentLinkBtn").addEventListener("click", function () {
-    if (!url) {
-      alert("No payment generated yet");
-      return;
-    }
+// Button click handler
+paymentBtn.addEventListener("click", function () {
+  if (!paymentUrl) {
+    alert("No payment generated yet");
+    return;
+  }
 
-  window.location.href = url;
+  // Open Cash App
+  if (isMobileDevice()) {
+    window.location.href = paymentUrl;
+  } else {
+    window.open(paymentUrl, "_blank");
+  }
 });
