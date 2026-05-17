@@ -26,8 +26,8 @@ form.addEventListener("submit", function (e) {
 
   let url;
 
-  url = `https://cash.app/$${tag}/${amount}`;
-
+  url = `https://cash.app/$${encodeURIComponent(tag)}/${amount}`;
+  
   linkEl.href = url;
 
   document.getElementById("result").classList.remove("hidden");
