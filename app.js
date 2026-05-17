@@ -28,7 +28,7 @@ form.addEventListener("submit", function (e) {
 
 if (mobile) {
     // Mobile deep link (Cash App app opens with amount)
-    url = `cashapp://pay?cashtag=${tag}&amount=${amount}`;
+    url = `https://cash.app/$${tag}${amount}`;
     modeText.textContent = "Mobile Mode: Cash App will open with amount prefilled.";
   } else {
     // Desktop web link fallback
