@@ -38,10 +38,10 @@ form.addEventListener("submit", function (e) {
   document.getElementById("result").classList.remove("hidden");
 
   document.getElementById("paymentLinkBtn").addEventListener("click", function () {
-    if (!generatedUrl) {
+    if (!url) {
       alert("No payment generated yet");
       return;
     }
 
-  window.location.href = generatedUrl;
+  window.location.href = url;
 });
