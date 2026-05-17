@@ -37,7 +37,7 @@ form.addEventListener("submit", function (e) {
 
   document.getElementById("result").classList.remove("hidden");
 
-  setTimeout(() => {
-    window.location.href = url;
-  }, 50);
+  // update button link (optional but recommended)
+  const linkEl = document.getElementById("paymentLink");
+  linkEl.href = generatedUrl;
 });
