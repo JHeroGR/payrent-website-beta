@@ -10,46 +10,33 @@ function isMobileDevice() {
 form.addEventListener("submit", function (e) {
   e.preventDefault();
 
-  // Inputs
-  let name = document.getElementById("tenantName").value.trim();
-  let unit = document.getElementById("unitNumber").value.trim();
-  let amount = document.getElementById("rentAmount").value.trim();
-  let tag = document.getElementById("cashTag").value.trim();
+  const name = document.getElementById("tenantName").value;
+  const unit = document.getElementById("unitNumber").value;
+  const amount = document.getElementById("rentAmount").value;
+  const tag = document.getElementById("cashTag").value.replace("$", "");
 
-  // Normalize Cash App tag
-  tag = tag.replace("$", "").replace(/\s/g, "");
-
-  // Validate amount
-  amount = parseFloat(amount);
-  if (isNaN(amount) || amount <= 0) {
-    alert("Please enter a valid amount");
-    return;
-  }
-
-  // Update UI
   document.getElementById("rName").textContent = name;
   document.getElementById("rUnit").textContent = unit;
-  document.getElementById("rAmount").textContent = amount.toFixed(2);
+  document.getElementById("rAmount").textContent = amount;
 
   const linkEl = document.getElementById("paymentLink");
   const modeText = document.getElementById("modeText");
 
   const mobile = isMobileDevice();
 
-  // ✅ Correct Cash App format (THIS is the key fix)
-  const url = `https://cash.app/$${tag}`;
+  let url;
 
-  linkEl.href = url;
-
-  // Optional behavior text
   if (mobile) {
-    modeText.textContent = "Mobile Mode: Opening Cash App app...";
+    // Mobile deep link (Cash App app opens with amount)
+    url = `cashapp://pay?cashtag=${tag}&amount=${amount}`;
+    modeText.textContent = "Mobile Mode: Cash App will open with amount prefilled.";
   } else {
-    modeText.textContent = "Desktop Mode: Opening Cash App page...";
+    // Desktop web link fallback
+    url = `https://cash.app/$${tag}?amount=${amount}`;
+    modeText.textContent = "Desktop Mode: Opens Cash App payment page.";
   }
 
-  // Optional: auto-open link
-  window.location.href = url;
+  linkEl.href = url;
 
   document.getElementById("result").classList.remove("hidden");
 });
