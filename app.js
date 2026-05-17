@@ -37,7 +37,11 @@ form.addEventListener("submit", function (e) {
 
   document.getElementById("result").classList.remove("hidden");
 
-  // update button link (optional but recommended)
-  const linkEl = document.getElementById("paymentLink");
-  linkEl.href = generatedUrl;
+  document.getElementById("paymentLinkBtn").addEventListener("click", function () {
+    if (!generatedUrl) {
+      alert("No payment generated yet");
+      return;
+    }
+
+  window.location.href = generatedUrl;
 });
