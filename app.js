@@ -37,7 +37,7 @@ form.addEventListener("submit", function (e) {
   const mobile = isMobileDevice();
 
   // ✅ Correct Cash App format (THIS is the key fix)
-  const url = `https://cash.app/$${tag}/${amount}`;
+  const url = `https://cash.app/$${tag}`;
 
   linkEl.href = url;
 
