@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Rental Payment Portal</title>
+
+  <link rel="stylesheet" href="payment.css" />
+</head>
+<body>
+
+  <div class="container">
+    <div class="card">
+
+      <h1>Rental Payment Portal</h1>
+      <p class="subtitle">Pay rent using Cash App (Mobile + Desktop Supported)</p>
+
+      <form id="paymentForm">
+
+        <div class="input-group">
+          <label>Tenant Name</label>
+          <input type="text" id="tenantName" required />
+        </div>
+
+        <div class="input-group">
+          <label>Unit Number</label>
+          <input type="text" id="unitNumber" required />
+        </div>
+
+        <div class="input-group">
+          <label>Rent Amount ($)</label>
+          <input type="number" id="rentAmount" required />
+        </div>
+
+        <div class="input-group">
+          <label>Cash App Username ($tag)</label>
+          <input type="text" id="cashTag" required />
+        </div>
+
+        <button type="submit" class="btn">Generate Payment</button>
+      </form>
+
+      <div id="result" class="hidden">
+
+        <h2>Payment Details</h2>
+
+        <p><strong>Name:</strong> <span id="rName"></span></p>
+        <p><strong>Unit:</strong> <span id="rUnit"></span></p>
+        <p><strong>Amount:</strong> $<span id="rAmount"></span></p>
+
+        <a id="paymentLink" class="pay-btn" target="_blank">
+          Open Cash App
+        </a>
+
+        <p class="mode-note" id="modeText"></p>
+
+      </div>
+
+    </div>
+  </div>
+
+  <script src="payment.js"></script>
+</body>
+</html>
